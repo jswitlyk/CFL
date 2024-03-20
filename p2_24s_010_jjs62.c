@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
         printf("Processing String (%d / %d): %s\n", strIdx, n, string); //print progress
         state = Q0; //starting state
         for(int j = 0; j < strlen(string) + 1; j++) { //for each character in the current string
-            printf("Current State: %s\n", stateNames[state]); //print current state
+            printf("\nCurrent State: %s\n", stateNames[state]); //print current state
             printf("Read: %c\n", string[j]); //print read character
             switch(state) {
                 case Q0:
@@ -196,10 +196,10 @@ int main(int argc, char **argv) {
             }
             if(state == Q6) {
                     if(!isEmptyJjs62(&stack))
-                        printf("The String Has Been Rejected due to Non-empty Stack\n\n");
-                    else printf("String Accepted\n\n");
+                        printf("The String Has Been Rejected due to Non-empty Stack\n\n\n");
+                    else printf("String Accepted\n\n\n");
                 }
-                else printf("The String Has Been Rejected due to a Crash\n\n");
+                else printf("The String Has Been Rejected due to a Crash\n\n\n");
             clearJjs62(&stack);
             strIdx++;           
     }
