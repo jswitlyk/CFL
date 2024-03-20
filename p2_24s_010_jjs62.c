@@ -196,10 +196,10 @@ int main(int argc, char **argv) {
             }
             if(state == Q6) {
                     if(!isEmptyJjs62(&stack))
-                        printf("The String Has Been Rejected due to Non-empty Stack\n");
-                    else printf("String Accepted\n");
+                        printf("The String Has Been Rejected due to Non-empty Stack\n\n");
+                    else printf("String Accepted\n\n");
                 }
-                else printf("The String Has Been Rejected due to a Crash\n");
+                else printf("The String Has Been Rejected due to a Crash\n\n");
             clearJjs62(&stack);
             strIdx++;           
     }
