@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     printf("Section number: 010\n");
     printf("Semester: Spring 2024\n");
     printf("Written by Jeremy Switlyk (jjs62)\n");
-    printf("Instructor: Marvin Nakayama, marvin@njit.edu\n");
+    printf("Instructor: Marvin Nakayama, marvin@njit.edu\n\n");
 
     /*the number of strings to process*/
     int n;
@@ -84,7 +84,6 @@ int main(int argc, char **argv) {
         }
         printf("Processing String (%d / %d): %s\n", strIdx, n, string); //print progress
         state = Q0; //starting state
-        printf("STARTING STATE: %s\n", stateNames[0]); //print current state
         for(int j = 0; j < strlen(string) + 1; j++) { //for each character in the current string
             printf("Current State: %s\n", stateNames[state]); //print current state
             printf("Read: %c\n", string[j]); //print read character
