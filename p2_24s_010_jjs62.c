@@ -200,7 +200,8 @@ int main(int argc, char **argv) {
                     else printf("String Accepted\n");
                 }
                 else printf("The String Has Been Rejected due to a Crash\n");
-            clearJjs62(&stack);               
+            clearJjs62(&stack);
+            strIdx++;           
     }
     return 0;
 }
