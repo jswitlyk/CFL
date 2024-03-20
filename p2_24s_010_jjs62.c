@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
             printf("Enter a string: \n"); //prompt user to enter a string to process if they were not passed as arguments
             scanf("%s", string); //assign the entered string to the char array
         }
-        printf("Processing String (%d / %d)", strIdx, n); //print progress
+        printf("Processing String (%d / %d): %s\n", strIdx, n, string); //print progress
         state = Q0; //starting state
         printf("STARTING STATE: %s\n", stateNames[0]); //print current state
         for(int j = 0; j < strlen(string) + 1; j++) { //for each character in the current string
