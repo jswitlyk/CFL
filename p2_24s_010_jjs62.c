@@ -109,6 +109,7 @@ int main(int argc, char **argv) {
                             break;
                         default: state = CRASH;
                     }
+                    break;
                 case Q2:
                     if(string[j] == '(')
                         popPushJjs62(&stack, EPSILON, '(');
