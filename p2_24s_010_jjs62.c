@@ -175,8 +175,10 @@ int main(int argc, char **argv) {
                 case Q8:
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
-                    else if(string[j] == ')')
+                    else if(string[j] == ')') {
                         popPushJjs62(&stack, '(', EPSILON);
+                        state = Q2;
+                    }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
