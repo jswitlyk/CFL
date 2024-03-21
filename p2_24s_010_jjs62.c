@@ -138,16 +138,18 @@ int main(int argc, char **argv) {
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
                     else if(string[j] == ')') {
-                        popPushJjs62(&stack, '(', EPSILON);
-                        state = Q9;
+                        if(popPushJjs62(&stack, '(', EPSILON) == 1)
+                            state = CRASH;
+                        else state = Q9;
                     }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
                     }
                     else if (string[j] == 'a') {
-                        popPushJjs62(&stack, 'a', EPSILON);
-                        state = Q5;
+                        if(popPushJjs62(&stack, 'a', EPSILON) == 1)
+                            state = CRASH;
+                        else state = Q5;
                     }
                     else state = CRASH;
                     printf("State After Transition: %s\n", stateNames[state]);
@@ -155,7 +157,8 @@ int main(int argc, char **argv) {
                 case Q5:
                     switch(string[j]) {
                         case 'b':
-                            popPushJjs62(&stack, 'b', EPSILON);
+                            if(popPushJjs62(&stack, 'b', EPSILON) == 1)
+                                state = CRASH;
                             printf("State After Transition: %s\n", stateNames[state]);
                             break;
                         case 'a':
@@ -179,32 +182,38 @@ int main(int argc, char **argv) {
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
                     else if(string[j] == ')') {
-                        popPushJjs62(&stack, '(', EPSILON);
-                        state = Q9;
+                        if(popPushJjs62(&stack, '(', EPSILON) == 1)
+                            state = CRASH;
+                        else state = Q9;
                     }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
                     }
                     else if (string[j] == 'a') {
-                        popPushJjs62(&stack, 'a', EPSILON);
-                        state = Q5;
+                        if(popPushJjs62(&stack, 'a', EPSILON) == 1)
+                            state = CRASH;
+                        else state = Q5;
                     }
                     else state = CRASH;
                     printf("State After Transition: %s\n", stateNames[state]);
                     break;
                 case Q9:
-                    if(string[j] == ')')
-                        popPushJjs62(&stack, '(', EPSILON);
+                    if(string[j] == ')') {
+                        if(popPushJjs62(&stack, '(', EPSILON) == 1)
+                            state = CRASH;
+                    }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
                     }
                     else if (string[j] == 'a') {
-                        popPushJjs62(&stack, 'a', EPSILON);
-                        state = Q5;
+                        if(popPushJjs62(&stack, 'a', EPSILON) == 1)
+                            state = CRASH;
+                        else state = Q5;
                     }
                     else state = CRASH;
+                    printf("State After Transition: %s\n", stateNames[state]);
                     break;
                 case CRASH:
                     printf("The PDA has crashed.\n");
@@ -227,19 +236,19 @@ int main(int argc, char **argv) {
 
 int popPushJjs62(struct List *list, char popChar, char pushChar) {
     /*function that pops and pushes characters to the stack*/
+    int error = 0;
     if(popChar != '#'){
         if(isEmptyJjs62(list)) {
             printf("Cannot Pop an Empty Stack\n");
-            return 1;
+            error = 1;
         }
         char top = popJjs62(list);
         if (top != popChar) {
             printf("Popped Character Does not Match Expected\n");
-            return 1;
+            error = 1;
         }
         else {
             printf("Popped: %c\n", popChar);
-            return 0;
         }
     }
     else printf("Popped: Epsilon\n");
@@ -248,7 +257,7 @@ int popPushJjs62(struct List *list, char popChar, char pushChar) {
         printf("Pushed: %c\n", pushChar);
     }
     else printf("Pushed: Epsilon\n");
-    return 0;
+    return error;
 }
 
 int isOperatorJjs62(char character) {
