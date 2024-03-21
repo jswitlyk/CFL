@@ -48,10 +48,10 @@ int main(int argc, char **argv) {
     const char EPSILON = '#';
 
     /*enumerate all possible states in the PDA*/
-    typedef enum pdaState {Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, CRASH} pdaState;
+    typedef enum pdaState {Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, CRASH} pdaState;
 
     /*names of states for printing*/
-    const char *stateNames[] = {"Q0", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "CRASH"};
+    const char *stateNames[] = {"Q0", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "CRASH"};
 
     /*variable to store current enumerated state*/
     pdaState state;
@@ -137,8 +137,10 @@ int main(int argc, char **argv) {
                 case Q4:
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
-                    else if(string[j] == ')')
+                    else if(string[j] == ')') {
                         popPushJjs62(&stack, '(', EPSILON);
+                        state = Q9;
+                    }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
@@ -178,7 +180,7 @@ int main(int argc, char **argv) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                     else if(string[j] == ')') {
                         popPushJjs62(&stack, '(', EPSILON);
-                        state = Q2;
+                        state = Q9;
                     }
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
@@ -190,6 +192,19 @@ int main(int argc, char **argv) {
                     }
                     else state = CRASH;
                     printf("State After Transition: %s\n", stateNames[state]);
+                    break;
+                case Q9:
+                    if(string[j] == ')')
+                        popPushJjs62(&stack, '(', EPSILON);
+                    else if(isOperatorJjs62(string[j])) {
+                        popPushJjs62(&stack, EPSILON, EPSILON);
+                        state = Q2;
+                    }
+                    else if (string[j] == 'a') {
+                        popPushJjs62(&stack, 'a', EPSILON);
+                        state = Q5;
+                    }
+                    else state = CRASH;
                     break;
                 case CRASH:
                     printf("The PDA has crashed.\n");
