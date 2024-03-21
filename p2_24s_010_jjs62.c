@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
                     else if(string[j] == ')')
-                        popPushJjs62(&stack, ')', EPSILON);
+                        popPushJjs62(&stack, '(', EPSILON);
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
@@ -153,11 +153,11 @@ int main(int argc, char **argv) {
                 case Q5:
                     switch(string[j]) {
                         case 'b':
-                            popPushJjs62(&stack, EPSILON, 'b');
+                            popPushJjs62(&stack, 'b', EPSILON);
                             printf("State After Transition: %s\n", stateNames[state]);
                             break;
                         case 'a':
-                            popPushJjs62(&stack, EPSILON, 'a');
+                            popPushJjs62(&stack, 'a', EPSILON);
                             state = Q6;
                             printf("State After Transition: %s\n", stateNames[state]);
                             break;
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
                     if(isdigit(string[j]))
                         popPushJjs62(&stack, EPSILON, EPSILON);
                     else if(string[j] == ')')
-                        popPushJjs62(&stack, ')', EPSILON);
+                        popPushJjs62(&stack, '(', EPSILON);
                     else if(isOperatorJjs62(string[j])) {
                         popPushJjs62(&stack, EPSILON, EPSILON);
                         state = Q2;
@@ -199,8 +199,8 @@ int main(int argc, char **argv) {
                     if(!isEmptyJjs62(&stack))
                         printf("The String Has Been Rejected due to Non-empty Stack\n\n\n");
                     else printf("String Accepted\n\n\n");
-                }
-                else printf("The String Has Been Rejected due to a Crash\n\n\n");
+            }
+            else printf("The String Has Been Rejected due to a Crash\n\n\n");
             clearJjs62(&stack);
             strIdx++;           
     }
