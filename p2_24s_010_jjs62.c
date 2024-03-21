@@ -22,7 +22,7 @@ struct List newListJjs62() {
     return list;
 }
 
-void popPushJjs62(struct List *list, char popChar, char pushChar);
+int popPushJjs62(struct List *list, char popChar, char pushChar);
 int isOperatorJjs62(char character);
 int isEmptyJjs62(struct List *list);
 char popJjs62(struct List *list);
@@ -157,8 +157,9 @@ int main(int argc, char **argv) {
                             printf("State After Transition: %s\n", stateNames[state]);
                             break;
                         case 'a':
-                            popPushJjs62(&stack, 'a', EPSILON);
-                            state = Q6;
+                            if(popPushJjs62(&stack, 'a', EPSILON) == 1)
+                                state = CRASH;
+                            else state = Q6;
                             printf("State After Transition: %s\n", stateNames[state]);
                             break;
                         default: state = CRASH;
@@ -209,10 +210,15 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void popPushJjs62(struct List *list, char popChar, char pushChar) {
+int popPushJjs62(struct List *list, char popChar, char pushChar) {
     /*function that pops and pushes characters to the stack*/
     if(popChar != '#'){
-        popJjs62(list);
+        if(!isEmptyJjs62(list))
+            popJjs62(list);
+        else {
+            printf("Cannot Pop an Empty Stack\n");
+            return 1;
+        }
         printf("Popped: %c\n", popChar);
     }
     else printf("Popped: Epsilon\n");
@@ -221,6 +227,7 @@ void popPushJjs62(struct List *list, char popChar, char pushChar) {
         printf("Pushed: %c\n", pushChar);
     }
     else printf("Pushed: Epsilon\n");
+    return 0;
 }
 
 int isOperatorJjs62(char character) {
