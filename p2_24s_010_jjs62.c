@@ -228,13 +228,19 @@ int main(int argc, char **argv) {
 int popPushJjs62(struct List *list, char popChar, char pushChar) {
     /*function that pops and pushes characters to the stack*/
     if(popChar != '#'){
-        if(!isEmptyJjs62(list))
-            popJjs62(list);
-        else {
+        if(isEmptyJjs62(list)) {
             printf("Cannot Pop an Empty Stack\n");
             return 1;
         }
-        printf("Popped: %c\n", popChar);
+        char top = popJjs62(list);
+        if (top != popChar) {
+            printf("Popped Character Does not Match Expected\n");
+            return 1;
+        }
+        else {
+            printf("Popped: %c\n", popChar);
+            return 0;
+        }
     }
     else printf("Popped: Epsilon\n");
     if(pushChar != '#'){
